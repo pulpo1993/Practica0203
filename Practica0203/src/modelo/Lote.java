@@ -11,4 +11,61 @@ package modelo;
  */
 public class Lote {
     
+    private String tipoLote;
+    private double largo;
+    private double ancho;
+    private double mtsCuadrado;
+    private Casa casa;
+
+    public Lote() {
+    }
+
+    public Lote(String tipoLote, double largo, double ancho, double mtsCuadrado, Casa casa) {
+        this.tipoLote = tipoLote;
+        this.largo = largo;
+        this.ancho = ancho;
+        this.mtsCuadrado = mtsCuadrado;
+        this.casa = casa;
+    }
+
+    public String getTipoLote() {
+        return tipoLote;
+    }
+
+    public void setTipoLote(String tipoLote) {
+        this.tipoLote = tipoLote;
+    }
+
+    public double getLargo() {
+        return largo;
+    }
+
+    public void setLargo(double largo) {
+        this.largo = largo;
+    }
+
+    public double getAncho() {
+        return ancho;
+    }
+
+    public void setAncho(double ancho) {
+        this.ancho = ancho;
+    }
+
+    public double getMtsCuadrado() {
+        return mtsCuadrado;
+    }
+
+    public void setMtsCuadrado(double mtsCuadrado) {
+        this.mtsCuadrado = mtsCuadrado;
+    }
+
+    public Casa getCasa() {
+        return casa;
+    }
+
+    public void setCasa(Casa casa) {
+        this.casa = casa;
+    }
+    
 }
