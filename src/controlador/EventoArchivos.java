@@ -27,9 +27,6 @@ public class EventoArchivos implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         try {
             if (e.getSource().equals(this.ventana.getBotonList().get(0))) {
-                if (this.ventana.selecionarRuta() == "") {
-                    throw new ExcepcionCamposVacios("");
-                }
                 this.ventana.setRuta(this.ventana.selecionarRuta());
             }
             if (e.getSource().equals(this.ventana.getBotonList().get(1))) {

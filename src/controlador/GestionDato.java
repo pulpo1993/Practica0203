@@ -20,10 +20,10 @@ import modelo.Urbanizacion;
  */
 public class GestionDato {
 
-    List<Casa> casaList;
-    List<Lote> loteList;
-    List<Persona> personaList;
-    List<Urbanizacion> urbanizacionList;
+    private List<Casa> casaList;
+    private List<Lote> loteList;
+    private List<Persona> personaList;
+    private List<Urbanizacion> urbanizacionList;
 
     public GestionDato(List<Casa> casaList, List<Lote> loteList, List<Persona> personaList, List<Urbanizacion> urbanizacionList) {
         this.casaList = casaList;
