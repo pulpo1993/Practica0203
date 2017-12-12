@@ -1,5 +1,6 @@
 package vista;
 
+import controlador.EventoPersona;
 import controlador.GestionDato;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -14,8 +15,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import modelo.Persona;
 
-public class VentanaUrbanizacion extends JInternalFrame {
+public class VentanaPersona extends JInternalFrame {
 
     private Object[][] datos;
     private Object[] encabezado;
@@ -28,10 +30,10 @@ public class VentanaUrbanizacion extends JInternalFrame {
     private List<JButton> botonList;
     private GestionDato gD;
 
-    public VentanaUrbanizacion(String title, GestionDato gD) {
+    public VentanaPersona(String title, GestionDato gD) {
         super(title, true, true, true, true);
-        this.setSize(429, 330);
-        this.setLocation(10, 323);
+        this.setSize(600, 460);
+        this.setLocation(5, 10);
         this.gD = gD;
         this.iniciaComponente();
     }
@@ -42,9 +44,13 @@ public class VentanaUrbanizacion extends JInternalFrame {
         JPanel panelNorte = new JPanel(new BorderLayout());
 
         this.labelList = new ArrayList<JLabel>();
+        this.labelList.add(new JLabel("Cedula"));
         this.labelList.add(new JLabel("Nombre"));
-        this.labelList.add(new JLabel("Lote"));
-        this.labelList.add(new JLabel("Agregar Urbanizacion"));
+        this.labelList.add(new JLabel("Apellido"));
+        this.labelList.add(new JLabel("Fecha de Nacimiento"));
+        this.labelList.add(new JLabel("Dirección"));
+        this.labelList.add(new JLabel("Teléfono"));
+        this.labelList.add(new JLabel("Agregar Dueño"));
 
         this.textoList = new ArrayList<JTextField>();
         for (int i = 0; i < this.labelList.size() - 1; i++) {
@@ -52,21 +58,29 @@ public class VentanaUrbanizacion extends JInternalFrame {
         }
 
         this.botonList = new ArrayList<JButton>();
-        this.botonList.add(new JButton("Guardar Urbanizacion"));
+        this.botonList.add(new JButton("Guardar Dueño"));
         this.botonList.add(new JButton("Limpiar Formulario"));
         for (int i = 0; i < this.botonList.size(); i++) {
-            //this.botonList.get(i).addActionListener(new EventoDuenio(this));
+            this.botonList.get(i).addActionListener(new EventoPersona(this));
         }
 
         JPanel panelTitulo = new JPanel(new FlowLayout());
-        JPanel panelIngreso = new JPanel(new GridLayout(3, 2));
+        JPanel panelIngreso = new JPanel(new GridLayout(7, 2));
 
         panelIngreso.add(this.labelList.get(0));
         panelIngreso.add(this.textoList.get(0));
         panelIngreso.add(this.labelList.get(1));
         panelIngreso.add(this.textoList.get(1));
+        panelIngreso.add(this.labelList.get(2));
+        panelIngreso.add(this.textoList.get(2));
+        panelIngreso.add(this.labelList.get(3));
+        panelIngreso.add(this.textoList.get(3));
+        panelIngreso.add(this.labelList.get(4));
+        panelIngreso.add(this.textoList.get(4));
+        panelIngreso.add(this.labelList.get(5));
+        panelIngreso.add(this.textoList.get(5));
 
-        panelTitulo.add(this.labelList.get(2));
+        panelTitulo.add(this.labelList.get(6));
         panelIngreso.add(this.botonList.get(0));
         panelIngreso.add(this.botonList.get(1));
 
@@ -74,11 +88,15 @@ public class VentanaUrbanizacion extends JInternalFrame {
         panelNorte.add(panelIngreso, BorderLayout.CENTER);
 
         //Tabla 
-        this.encabezado = new Object[2];
-        this.encabezado[0] = "Nombre";
-        this.encabezado[1] = "Lote";
+        this.encabezado = new Object[6];
+        this.encabezado[0] = "Cedula";
+        this.encabezado[1] = "Nombre";
+        this.encabezado[2] = "Apellido";
+        this.encabezado[3] = "Fecha Nacimiento";
+        this.encabezado[4] = "Direccion";
+        this.encabezado[5] = "Telefono";
 
-        //this.datos = cargarDatos(this.gD.getPacienteList().size(), this.encabezado.length);
+        this.datos = cargarDatos(this.gD.getPersonaList().size(), this.encabezado.length);
         this.modeloTabla = new DefaultTableModel(this.datos, this.encabezado);
         this.tabla = new JTable(this.modeloTabla);
         this.scroll = new JScrollPane(this.tabla);
@@ -88,6 +106,21 @@ public class VentanaUrbanizacion extends JInternalFrame {
 
         this.add(this.panelInicial);
 
+    }
+    public Object[][] cargarDatos(int f, int c) {
+
+        Object[][] retorno = new Object[f][c];
+        int i = 0;
+        for (Persona p : this.gD.getPersonaList()) {
+            retorno[i][0] = p.getCedula();
+            retorno[i][1] = p.getNombre();
+            retorno[i][2] = p.getApellido();
+            retorno[i][3] = p.getFechaNac();
+            retorno[i][4] = p.getDireccion();
+            retorno[i][5] = p.getTelefono();
+            i++;
+        }
+        return retorno;
     }
 
     public Object[][] getDatos() {
@@ -169,5 +202,5 @@ public class VentanaUrbanizacion extends JInternalFrame {
     public void setgD(GestionDato gD) {
         this.gD = gD;
     }
-    
+
 }

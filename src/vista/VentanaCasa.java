@@ -1,5 +1,6 @@
 package vista;
 
+import controlador.EventoCasa;
 import controlador.GestionDato;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -7,6 +8,7 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,6 +16,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import modelo.Casa;
+import modelo.Persona;
 
 public class VentanaCasa extends JInternalFrame{
     private Object[][] datos;
@@ -26,6 +30,7 @@ public class VentanaCasa extends JInternalFrame{
     private List<JTextField> textoList;
     private List<JButton> botonList;
     private GestionDato gD;
+    private JComboBox combo;
     
     public VentanaCasa(String title, GestionDato gD) {
         super(title, true, true, true, true);
@@ -48,19 +53,21 @@ public class VentanaCasa extends JInternalFrame{
         this.labelList.add(new JLabel("Agregar Casa"));
 
         this.textoList = new ArrayList<JTextField>();
-        for (int i = 0; i < this.labelList.size() - 1; i++) {
+        for (int i = 0; i < this.labelList.size() - 2; i++) {
             this.textoList.add(new JTextField());
         }
 
         this.botonList = new ArrayList<JButton>();
         this.botonList.add(new JButton("Guardar Casa"));
-        this.botonList.add(new JButton("Limpiar Formulario"));
+        this.botonList.add(new JButton("Actualizar"));
         for (int i = 0; i < this.botonList.size(); i++) {
-            //this.botonList.get(i).addActionListener(new EventoDuenio(this));
+            this.botonList.get(i).addActionListener(new EventoCasa(this));
         }
+        
+        this.combo = new JComboBox();
 
         JPanel panelTitulo = new JPanel(new FlowLayout());
-        JPanel panelIngreso = new JPanel(new GridLayout(6, 2));
+        JPanel panelIngreso = new JPanel(new GridLayout(5, 2));
 
         panelIngreso.add(this.labelList.get(0));
         panelIngreso.add(this.textoList.get(0));
@@ -69,7 +76,7 @@ public class VentanaCasa extends JInternalFrame{
         panelIngreso.add(this.labelList.get(2));
         panelIngreso.add(this.textoList.get(2));
         panelIngreso.add(this.labelList.get(3));
-        panelIngreso.add(this.textoList.get(3));
+        panelIngreso.add(this.combo);
 
         panelTitulo.add(this.labelList.get(4));
         panelIngreso.add(this.botonList.get(0));
@@ -95,6 +102,27 @@ public class VentanaCasa extends JInternalFrame{
 
         this.add(this.panelInicial);
 
+    }
+    
+    public Object[][] cargarDatos(int f, int k) {
+
+        Object[][] retorno = new Object[f][k];
+        int i = 0;
+        for (Casa c : this.gD.getCasaList()) {
+            retorno[i][0] = c.getnPisos();
+            retorno[i][1] = c.getColor();
+            retorno[i][2] = c.getTipo();
+            retorno[i][3] = c.getDuenio().getNombre() + " " + c.getDuenio().getApellido();
+            i++;
+        }
+        return retorno;
+    }
+
+    public void cargarCombo() {
+        this.combo.removeAllItems();
+        for (Persona p : this.gD.getPersonaList()) {
+            this.combo.addItem(p.getCedula() + " | " + p.getNombre() + " " + p.getApellido());
+        }
     }
 
     public Object[][] getDatos() {
@@ -176,5 +204,13 @@ public class VentanaCasa extends JInternalFrame{
     public void setgD(GestionDato gD) {
         this.gD = gD;
     }
-    
+
+    public JComboBox getCombo() {
+        return combo;
+    }
+
+    public void setCombo(JComboBox combo) {
+        this.combo = combo;
+    }
+        
 }

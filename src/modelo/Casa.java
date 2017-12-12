@@ -9,7 +9,7 @@ package modelo;
  *
  * @author Jorge Pizarro
  */
-public class Casa {
+public class Casa implements java.io.Serializable{
     
     private int nPisos;
     private String color;

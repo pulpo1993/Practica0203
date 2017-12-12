@@ -3,8 +3,9 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
+import vista.VentanaArchivos;
 import vista.VentanaCasa;
-import vista.VentanaDuenio;
+import vista.VentanaPersona;
 import vista.VentanaLote;
 //import vista.VentanaArchivos;
 //import vista.VentanaConsulta;
@@ -29,7 +30,7 @@ public class EventoPrincipal implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(this.vPrincipal.getItemMenuList().get(0))) {
-            VentanaDuenio ventana = new VentanaDuenio("Ventana Duenio", this.vPrincipal.getgD());
+            VentanaPersona ventana = new VentanaPersona("Ventana Duenio", this.vPrincipal.getgD());
             ventana.setVisible(true);
             this.vPrincipal.getEscritorio().add(ventana);
         }
@@ -49,6 +50,11 @@ public class EventoPrincipal implements ActionListener {
 
         if (e.getSource().equals(this.vPrincipal.getItemMenuList().get(3))) {
             VentanaUrbanizacion ventana = new VentanaUrbanizacion("Ventana Urbanizacion", this.vPrincipal.getgD());
+            ventana.setVisible(true);
+            this.vPrincipal.getEscritorio().add(ventana);
+        }
+        if (e.getSource().equals(this.vPrincipal.getItemMenuList().get(4))) {
+            VentanaArchivos ventana = new VentanaArchivos("Gestion Archivos", this.vPrincipal.getgD());
             ventana.setVisible(true);
             this.vPrincipal.getEscritorio().add(ventana);
         }

@@ -9,7 +9,7 @@ package modelo;
  *
  * @author Jorge Pizarro
  */
-public class Lote {
+public class Lote implements java.io.Serializable{
     
     private String tipoLote;
     private double largo;

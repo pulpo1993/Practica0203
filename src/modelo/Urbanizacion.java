@@ -9,7 +9,7 @@ package modelo;
  *
  * @author Jorge Pizarro
  */
-public class Urbanizacion {
+public class Urbanizacion implements java.io.Serializable{
     
     private String nombre;
     private Lote lote;

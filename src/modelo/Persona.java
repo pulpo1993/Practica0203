@@ -9,7 +9,7 @@ package modelo;
  *
  * @author Jorge Pizarro
  */
-public class Persona {
+public class Persona implements java.io.Serializable{
     
     private String cedula;
     private String nombre;
