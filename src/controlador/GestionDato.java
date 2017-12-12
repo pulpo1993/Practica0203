@@ -5,9 +5,9 @@
  */
 package controlador;
 
+import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.List;
 import modelo.Casa;
 import modelo.Lote;
@@ -82,9 +82,16 @@ public class GestionDato {
 
     public boolean guardarArchivoDueño(String ruta) {
         try {
-            FileOutputStream outFile = new FileOutputStream(ruta+"\\ArchivoDueño", true);
-            ObjectOutputStream escritura = new ObjectOutputStream(outFile);
-            escritura.writeObject(this.personaList);
+            FileOutputStream outFile = new FileOutputStream(ruta + "\\ArchivoDueño", true);
+            DataOutputStream escritura = new DataOutputStream(outFile);
+            for (Persona p : this.personaList) {
+                escritura.writeUTF(p.getCedula());
+                escritura.writeUTF(p.getNombre());
+                escritura.writeUTF(p.getApellido());
+                escritura.writeUTF(p.getFechaNac());
+                escritura.writeUTF(p.getDireccion());
+                escritura.writeUTF(p.getTelefono());
+            }
             escritura.close();
             return true;
         } catch (IOException e1) {
@@ -94,9 +101,14 @@ public class GestionDato {
 
     public boolean guardarArchivoCasa(String ruta) {
         try {
-            FileOutputStream outFile = new FileOutputStream(ruta+"\\ArchivoCasa", true);
-            ObjectOutputStream escritura = new ObjectOutputStream(outFile);
-            escritura.writeObject(this.casaList);
+            FileOutputStream outFile = new FileOutputStream(ruta + "\\ArchivoCasa", true);
+            DataOutputStream escritura = new DataOutputStream(outFile);
+            for (Casa c : this.casaList) {
+                escritura.writeInt(c.getnPisos());
+                escritura.writeUTF(c.getColor());
+                escritura.writeUTF(c.getTipo());
+                escritura.writeUTF(c.getDuenio().getCedula());
+            }
             escritura.close();
             return true;
         } catch (IOException e1) {
@@ -106,9 +118,15 @@ public class GestionDato {
 
     public boolean guardarArchivoLote(String ruta) {
         try {
-            FileOutputStream outFile = new FileOutputStream(ruta+"\\ArchivoLote", true);
-            ObjectOutputStream escritura = new ObjectOutputStream(outFile);
-            escritura.writeObject(this.loteList);
+            FileOutputStream outFile = new FileOutputStream(ruta + "\\ArchivoLote", true);
+            DataOutputStream escritura = new DataOutputStream(outFile);
+            for (Lote l : this.loteList) {
+                escritura.writeUTF(l.getTipoLote());
+                escritura.writeDouble(l.getLargo());
+                escritura.writeDouble(l.getAncho());
+                escritura.writeDouble(l.getMtsCuadrado());
+                escritura.writeUTF(l.getCasa().getDuenio().getCedula());
+            }
             escritura.close();
             return true;
         } catch (IOException e1) {
@@ -118,14 +136,16 @@ public class GestionDato {
 
     public boolean guardarArchivoUrbanizacion(String ruta) {
         try {
-            FileOutputStream outFile = new FileOutputStream(ruta+"\\ArchivoUrbanizacion", true);
-            ObjectOutputStream escritura = new ObjectOutputStream(outFile);
-            escritura.writeObject(this.urbanizacionList);
+            FileOutputStream outFile = new FileOutputStream(ruta + "\\ArchivoUrbanizacion", true);
+            DataOutputStream escritura = new DataOutputStream(outFile);
+            for (Urbanizacion u : this.urbanizacionList) {
+                escritura.writeUTF(u.getNombre());
+                escritura.writeUTF(u.getLote().getCasa().getDuenio().getCedula());
+            }
             escritura.close();
             return true;
         } catch (IOException e1) {
             return false;
         }
     }
-
 }
